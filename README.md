@@ -15,8 +15,11 @@ docker run -t -i --init --rm -p 5000:5000 teranovalp/http-catch-all:latest
 ```
 
 ### Node
-Clone the repository and run the following command in the repo directory.
+Clone the repository and run the following commands in the cloned directory:
 
 ```sh
-npm i && npm run start
+npm i
+```
+```sh
+npm run start
 ```
