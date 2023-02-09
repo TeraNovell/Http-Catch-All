@@ -10,7 +10,7 @@ const server = http.createServer(async (request, response) => {
 
         const data = Buffer.concat(buffers).toString();
 
-        console.log(`${request.method} - ${decodeURI(request.url ?? "")}`, request.rawHeaders, data);
+        console.log(`${request.method} -> ${decodeURI(request.url ?? "")}`, request.rawHeaders, data);
 
         response.writeHead(200);
         response.end();
@@ -21,7 +21,7 @@ const server = http.createServer(async (request, response) => {
     }
 });
 
-const port = 5000;
+const port = process.env.PORT ?? 5000;
 server.listen(port, () => {
     console.log(`Server listens on port ${port}`);
 });
