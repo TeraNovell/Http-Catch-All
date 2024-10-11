@@ -22,4 +22,5 @@ jobs:
       - name: Build
         run: |
           rustup set profile minimal
+          cd ./http-catch-all
           cargo build --verbose
