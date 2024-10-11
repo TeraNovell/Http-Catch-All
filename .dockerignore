@@ -1,4 +1,4 @@
 .env
 .github/*
-.vscode/*
-node_modules/*
+.devcontainer/*
+http-catch-all/files/*

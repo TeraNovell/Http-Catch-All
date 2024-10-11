@@ -1,0 +1,6 @@
+services:
+  http-catch-all:
+    image: rust:slim-bullseye
+    volumes:
+      - "../:/workspace"
+    command: sleep infinity
