@@ -72,7 +72,7 @@ async fn handle_multipart(mut mult: Multipart) {
         let content_type = field.content_type().unwrap_or_default().to_owned();
 
         let Ok(data) = field.text().await else {
-            println!("Cloud not resolve data of field {0}!", name);
+            println!("Could not resolve data of field {0}!", name);
             return;
         };
 
@@ -85,7 +85,7 @@ async fn handle_multipart(mut mult: Multipart) {
                     name,
                     path.to_str().unwrap_or_default()
                 ),
-                Err(e) => println!("Cloud not save data for field {0}! {1}", name, e),
+                Err(e) => println!("Could not save data for field {0}! {1}", name, e),
             }
         }
     }
