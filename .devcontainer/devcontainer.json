@@ -1,0 +1,27 @@
+{
+    "name": "Http-Catch-All",
+    "dockerComposeFile": "./docker-compose.yml",
+    "service": "app",
+    "workspaceFolder": "/workspace",
+    "forwardPorts": [
+        8080
+    ],
+    "features": {},
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "EditorConfig.EditorConfig",
+                "golang.Go"
+            ],
+            "settings": {
+                "editor.formatOnSave": true,
+                "editor.codeActionsOnSave": {
+                    "source.organizeImports": "explicit"
+                },
+                "[go]": {
+                    "editor.defaultFormatter": "golang.go"
+                }
+            }
+        }
+    }
+}
