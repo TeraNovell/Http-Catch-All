@@ -12,14 +12,13 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Lint
         uses: hadolint/hadolint-action@v2.1.0
         with:
           dockerfile: ./dockerfile
           failure-threshold: warning
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-go@v5
       - name: Build
         run: |
-          npm ci
-          npm run build
+          go build

@@ -17,7 +17,7 @@ import (
 func main() {
 	exPath, err := os.Executable()
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 
 	folderPath := path.Join(filepath.Dir(exPath), "files")
@@ -31,45 +31,47 @@ func main() {
 		if strings.HasPrefix(r.Header.Get("Content-Type"), "multipart/form-data") {
 			r.ParseMultipartForm(0)
 
-			for key, val := range r.MultipartForm.Value {
-				fmt.Printf("%s = %s\n", key, val[0])
+			for field, val := range r.MultipartForm.Value {
+				fmt.Printf("%s = %s\n", field, val[0])
 			}
 
-			for key, val := range r.MultipartForm.File {
-				file, err := val[0].Open()
-				if err != nil {
-					fmt.Println(err)
-					return
+			for field, headers := range r.MultipartForm.File {
+				for _, header := range headers {
+					file, err := header.Open()
+					if err != nil {
+						fmt.Printf("Failed to open file %s of field %s -> %v\n", header.Filename, field, err)
+						continue
+					}
+					defer file.Close()
+
+					id, err := uuid.NewUUID()
+					if err != nil {
+						fmt.Printf("Failed to generate UUID -> %v\n", err)
+						continue
+					}
+
+					filePath := path.Join(folderPath, id.String()+filepath.Ext(header.Filename))
+					dest, err := os.Create(filePath)
+					if err != nil {
+						fmt.Printf("Failed to create new file -> %v\n", err)
+						continue
+					}
+					defer dest.Close()
+
+					_, err = io.Copy(dest, file)
+					if err != nil {
+						fmt.Printf("Failed to copy file -> %v\n", err)
+						continue
+					}
+
+					fmt.Printf("%s = Saved to: %s\n", field, filePath)
 				}
-				defer file.Close()
-
-				id, err := uuid.NewUUID()
-				if err != nil {
-					fmt.Println(err)
-					return
-				}
-
-				filePath := path.Join(folderPath, id.String()+filepath.Ext(val[0].Filename))
-
-				dest, err := os.Create(filePath)
-				if err != nil {
-					fmt.Println(err)
-					return
-				}
-				defer dest.Close()
-
-				_, err = io.Copy(dest, file)
-				if err != nil {
-					fmt.Println(err)
-					return
-				}
-
-				fmt.Printf("%s = Saved to: %s\n", key, filePath)
 			}
 		} else {
 			bytes, err := io.ReadAll(r.Body)
 			if err != nil {
-				fmt.Println(err)
+				fmt.Printf("Failed to read body -> %v\n", err)
+				return
 			}
 
 			if len(bytes) == 0 {
