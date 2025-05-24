@@ -2,9 +2,9 @@
 Http-Catch-All :mag_right:
 </h1>
 
-[![test](https://github.com/TeraNovaLP/Http-Catch-All/workflows/Test/badge.svg)](https://github.com/TeraNovaLP/Http-Catch-All/commits/master)
+[![test](https://github.com/TeraNovell/Http-Catch-All/workflows/Test/badge.svg)](https://github.com/TeraNovell/Http-Catch-All/commits/main)
 
-An HTTP server that catches every ingoing request, logs it and returns an 200 OK response.
+A small HTTP server that catches every ingoing request, logs it and returns an 200 OK response.
 
 [Docker Hub](https://hub.docker.com/r/teranovalp/http-catch-all)
 
