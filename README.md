@@ -13,23 +13,19 @@ An HTTP server that catches every ingoing request, logs it and returns an 200 OK
 ### Docker
 
 ```sh
-docker run -t -i --init --rm -p 5000:5000 teranovalp/http-catch-all:latest
+docker run -t -i --init --rm -p 8080:8080 teranovalp/http-catch-all:latest
 ```
 
-### Node
+### Shell
 
-Clone the repository and run the following commands in the cloned directory:
+Download the executable file of the latest Github release and run it like this:
 
 ```sh
-npm i
+./http-catch-all -port=8080
 ```
 
-```sh
-npm run start
-```
+## Arguments
 
-## Environment Variables
-
-| VAR  | Description      |
-| ---- | ---------------- |
-| PORT | Defaults to 5000 |
+| Option | Description                         |
+| ------ | ----------------------------------- |
+| -port  | Port to listen on. Defaults to 8080 |
