@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"io"
 	"log"
@@ -15,6 +16,10 @@ import (
 )
 
 func main() {
+	var port int
+	flag.IntVar(&port, "port", 8080, "port to listen on")
+	flag.Parse()
+
 	exPath, err := os.Executable()
 	if err != nil {
 		log.Fatal(err)
@@ -83,8 +88,6 @@ func main() {
 
 		w.WriteHeader(http.StatusOK)
 	})
-
-	port := 8080
 
 	log.Printf("Server listens on port %s\n", strconv.Itoa(port))
 	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", strconv.Itoa(port)), nil))
