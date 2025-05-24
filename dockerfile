@@ -1,11 +1,11 @@
-FROM node:lts-alpine
+FROM busybox:1.37
 
-ENV NODE_ENV production
+RUN adduser -u 1000 -D go
 
-USER node
-COPY --chown=node:node ./dist/ /var/dist/
+USER go
+COPY --chown=go:go ./dist/ /var/dist/
 
 WORKDIR /var/dist
 
-EXPOSE 5000
-ENTRYPOINT ["node", "index.js"]
+EXPOSE 8080
+ENTRYPOINT ["./http-catch-all"]
