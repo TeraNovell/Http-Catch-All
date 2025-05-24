@@ -79,11 +79,9 @@ func main() {
 				return
 			}
 
-			if len(bytes) == 0 {
-				return
+			if len(bytes) > 0 {
+				fmt.Println(string(bytes))
 			}
-
-			fmt.Println(string(bytes))
 		}
 
 		w.WriteHeader(http.StatusOK)
